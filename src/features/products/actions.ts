@@ -5,7 +5,7 @@ import { z } from "zod";
 import { ApiError } from "@/lib/http";
 import { productsService } from "./api/products.service";
 import { productSchema, type ProductInput } from "./schemas/product.schema";
-import type { Product } from "./types/product.types";
+import type { DeletedProduct, Product } from "./types/product.types";
 
 export type ProductFormErrors = {
   formErrors: string[];
@@ -22,9 +22,7 @@ function formError(message: string): ActionResult<never> {
   return { ok: false, errors: { formErrors: [message], fieldErrors: {} } };
 }
 
-async function run(
-  mutate: () => Promise<Product>,
-): Promise<ActionResult<Product>> {
+async function run<T>(mutate: () => Promise<T>): Promise<ActionResult<T>> {
   try {
     return { ok: true, data: await mutate() };
   } catch (error) {
@@ -59,4 +57,13 @@ export async function updateProduct(
   }
 
   return run(() => productsService.update(parsedId.data, parsed.data));
+}
+
+export async function deleteProduct(
+  id: unknown,
+): Promise<ActionResult<DeletedProduct>> {
+  const parsedId = productIdSchema.safeParse(id);
+  if (!parsedId.success) return formError("Invalid product id.");
+
+  return run(() => productsService.remove(parsedId.data));
 }
