@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { productsService } from "@/features/products/api/products.service";
-import { ProductCard } from "@/features/products/components/product-card";
+import { ProductGrid } from "@/features/products/components/product-grid";
 import { ProductToolbar } from "@/features/products/components/product-toolbar";
 import {
   applyProductQuery,
@@ -53,17 +53,7 @@ export default async function ProductsPage({
           </p>
         </div>
       ) : (
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {items.map((product, index) => (
-            <li key={product.id}>
-              <ProductCard
-                product={product}
-                categoryName={categoryName.get(product.category)}
-                eager={index < 4}
-              />
-            </li>
-          ))}
-        </ul>
+        <ProductGrid products={items} categories={categories} />
       )}
     </section>
   );

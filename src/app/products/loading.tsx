@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { productGridClassName } from "@/features/products/components/product-grid";
 import { PRODUCTS_PER_PAGE } from "@/features/products/lib/product-query";
 
 export default function ProductsLoading() {
@@ -24,10 +25,7 @@ export default function ProductsLoading() {
         </div>
       </div>
 
-      <ul
-        aria-hidden
-        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-      >
+      <ul aria-hidden className={productGridClassName}>
         {Array.from({ length: PRODUCTS_PER_PAGE }, (_, i) => (
           <li key={i}>
             <Card className="h-full pt-0">
