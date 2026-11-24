@@ -6,6 +6,7 @@ import { StarIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { productsService } from "@/features/products/api/products.service";
+import { ProductToolbar } from "@/features/products/components/product-toolbar";
 import {
   applyProductQuery,
   parseProductQuery,
@@ -50,6 +51,8 @@ export default async function ProductsPage({
           {totalPages > 1 ? ` · Page ${page} of ${totalPages}` : null}
         </p>
       </header>
+
+      <ProductToolbar categories={categories} />
 
       {items.length === 0 ? (
         <div className="rounded-xl border border-dashed px-6 py-16 text-center">

@@ -16,6 +16,14 @@ export default function ProductsLoading() {
         <Skeleton className="h-5 w-48" />
       </header>
 
+      <div aria-hidden className="flex flex-col gap-2 sm:flex-row">
+        <Skeleton className="h-8 flex-1 rounded-lg" />
+        <div className="flex gap-2">
+          <Skeleton className="h-8 flex-1 rounded-lg sm:w-48 sm:flex-none" />
+          <Skeleton className="h-8 flex-1 rounded-lg sm:w-48 sm:flex-none" />
+        </div>
+      </div>
+
       <ul
         aria-hidden
         className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
