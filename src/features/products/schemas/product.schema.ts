@@ -1,13 +1,20 @@
 import { z } from "zod";
 
+import type { Product } from "../types/product.types";
+
 export const productSchema = z.object({
   title: z
     .string({ error: "Title is required" })
     .trim()
     .min(1, { error: "Title is required" }),
-  price: z.number({ error: "Price must be a number" }).positive({
-    error: "Price must be greater than 0",
-  }),
+  price: z
+    .number({
+      error: (issue) =>
+        issue.input === undefined
+          ? "Price is required"
+          : "Price must be a number",
+    })
+    .positive({ error: "Price must be greater than 0" }),
   category: z
     .string({ error: "Category is required" })
     .trim()
@@ -28,3 +35,16 @@ export const productSchema = z.object({
 });
 
 export type ProductInput = z.infer<typeof productSchema>;
+
+export function productToInput(product: Product): ProductInput {
+  return {
+    title: product.title,
+    price: product.price,
+    category: product.category,
+    rating: product.rating,
+    description: product.description ?? "",
+    brand: product.brand ?? "",
+    stock: product.stock,
+    thumbnail: product.thumbnail || undefined,
+  };
+}
