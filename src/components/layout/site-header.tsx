@@ -28,7 +28,7 @@ export function SiteHeader() {
           className={buttonVariants({ size: "lg", className: "ml-auto" })}
         >
           <PlusIcon data-icon="inline-start" aria-hidden />
-          New product
+          Add product
         </Link>
       </div>
     </header>
