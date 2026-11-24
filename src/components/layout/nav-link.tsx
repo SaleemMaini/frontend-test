@@ -28,7 +28,7 @@ export function NavLink({
       className={cn(
         "rounded-md px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
         "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
-        isActive && "text-foreground",
+        isActive && "bg-muted text-foreground hover:bg-muted",
         className,
       )}
       {...props}
