@@ -54,6 +54,20 @@ export function parseProductQuery(searchParams: SearchParams): ProductQuery {
   };
 }
 
+export function buildProductsHref(
+  query: ProductQuery,
+  pathname = "/products",
+): string {
+  const params = new URLSearchParams();
+  if (query.q) params.set("q", query.q);
+  if (query.category) params.set("category", query.category);
+  if (query.sort) params.set("sort", query.sort);
+  if (query.page > 1) params.set("page", String(query.page));
+
+  const qs = params.toString();
+  return qs ? `${pathname}?${qs}` : pathname;
+}
+
 export function filterByTitle(products: Product[], q: string): Product[] {
   const needle = q.trim().toLowerCase();
   if (!needle) return products;

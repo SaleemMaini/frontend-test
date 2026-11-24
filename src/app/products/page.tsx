@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { productsService } from "@/features/products/api/products.service";
 import { ProductGrid } from "@/features/products/components/product-grid";
+import { ProductPagination } from "@/features/products/components/product-pagination";
 import { ProductToolbar } from "@/features/products/components/product-toolbar";
 import {
   applyProductQuery,
@@ -53,7 +54,14 @@ export default async function ProductsPage({
           </p>
         </div>
       ) : (
-        <ProductGrid products={items} categories={categories} />
+        <>
+          <ProductGrid products={items} categories={categories} />
+          <ProductPagination
+            query={query}
+            page={page}
+            totalPages={totalPages}
+          />
+        </>
       )}
     </section>
   );
