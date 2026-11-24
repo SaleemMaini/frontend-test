@@ -1,21 +1,25 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 type NavLinkProps = React.ComponentProps<typeof Link> & {
-  href: string
-  /** Only match the exact pathname instead of the path and its children. */
-  exact?: boolean
-}
+  href: string;
+  exact?: boolean;
+};
 
-export function NavLink({ href, exact = false, className, ...props }: NavLinkProps) {
-  const pathname = usePathname()
+export function NavLink({
+  href,
+  exact = false,
+  className,
+  ...props
+}: NavLinkProps) {
+  const pathname = usePathname();
   const isActive = exact
     ? pathname === href
-    : pathname === href || pathname.startsWith(`${href}/`)
+    : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <Link
@@ -25,9 +29,9 @@ export function NavLink({ href, exact = false, className, ...props }: NavLinkPro
         "rounded-md px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
         "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
         isActive && "text-foreground",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }

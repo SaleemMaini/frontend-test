@@ -30,7 +30,7 @@ export default function ProductsLoading() {
       >
         {Array.from({ length: PRODUCTS_PER_PAGE }, (_, i) => (
           <li key={i}>
-            <Card className="h-full">
+            <Card className="h-full pt-0">
               <Skeleton className="aspect-square rounded-none" />
               <CardHeader>
                 <Skeleton className="h-5 w-20 rounded-full" />

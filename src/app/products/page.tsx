@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { StarIcon } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { productsService } from "@/features/products/api/products.service";
+import { ProductCard } from "@/features/products/components/product-card";
 import { ProductToolbar } from "@/features/products/components/product-toolbar";
 import {
   applyProductQuery,
@@ -15,11 +11,6 @@ import {
 export const metadata: Metadata = {
   title: "Products",
 };
-
-const price = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
 
 export default async function ProductsPage({
   searchParams,
@@ -65,43 +56,11 @@ export default async function ProductsPage({
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {items.map((product, index) => (
             <li key={product.id}>
-              <Link
-                href={`/products/${product.id}`}
-                className="block h-full rounded-xl focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
-              >
-                <Card className="h-full transition-colors hover:bg-muted/50">
-                  {product.thumbnail ? (
-                    <div className="relative aspect-square bg-muted">
-                      <Image
-                        src={product.thumbnail}
-                        alt=""
-                        fill
-                        sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        className="object-contain p-4"
-                        priority={index < 4}
-                      />
-                    </div>
-                  ) : null}
-                  <CardHeader>
-                    <Badge variant="secondary" className="w-fit">
-                      {categoryName.get(product.category) ?? product.category}
-                    </Badge>
-                    <CardTitle className="line-clamp-2">
-                      {product.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="mt-auto flex items-center justify-between text-sm">
-                    <span className="font-semibold tabular-nums">
-                      {price.format(product.price)}
-                    </span>
-                    <span className="flex items-center gap-1 text-muted-foreground tabular-nums">
-                      <StarIcon className="size-4 fill-current" aria-hidden />
-                      <span className="sr-only">Rating:</span>
-                      {product.rating.toFixed(1)}
-                    </span>
-                  </CardContent>
-                </Card>
-              </Link>
+              <ProductCard
+                product={product}
+                categoryName={categoryName.get(product.category)}
+                eager={index < 4}
+              />
             </li>
           ))}
         </ul>
