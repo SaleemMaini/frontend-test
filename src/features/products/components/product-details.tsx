@@ -1,12 +1,13 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { PencilIcon, Trash2Icon } from "lucide-react";
+import { PencilIcon } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { formatDate, formatPrice } from "@/lib/format";
+import { DeleteProductDialog } from "@/features/products/components/delete-product-dialog";
 import { ProductGallery } from "@/features/products/components/product-gallery";
 import { Rating } from "@/features/products/components/rating";
 import type { Product } from "@/features/products/types/product.types";
@@ -140,11 +141,10 @@ export function ProductDetails({ product }: { product: Product }) {
               <PencilIcon data-icon="inline-start" aria-hidden />
               Edit
             </Link>
-            {/* TODO: open DeleteProductDialog once it and the delete action exist. */}
-            <Button variant="destructive" size="lg" disabled>
-              <Trash2Icon data-icon="inline-start" aria-hidden />
-              Delete
-            </Button>
+            <DeleteProductDialog
+              productId={product.id}
+              productTitle={product.title}
+            />
           </div>
         </div>
       </div>
